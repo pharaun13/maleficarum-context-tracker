@@ -32,9 +32,4 @@ interface TracerInterface
 
     public function createSpanFromContext(array $context);
 
-    /**
-     * @return string
-     */
-    public function __toString();
-
 }

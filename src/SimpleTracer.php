@@ -26,7 +26,6 @@ class SimpleTracer implements TracerInterface {
 
 	/**
 	 * @inheritDoc
-	 * @todo rozdzielić na baggageItems a tags - tags tylko lokalnie a items są przesyłane
 	 */
 	public function addTag($key, $value) {
 		$this->getCurrentSpan()->addTag($key, $value);
@@ -73,11 +72,6 @@ class SimpleTracer implements TracerInterface {
      */
     private function getDefaultOperationName(): string {
         return getHostName();
-    }
-
-    public function __toString()
-    {
-        return json_encode($this->getCurrentSpan()->transfer());
     }
 
     /**

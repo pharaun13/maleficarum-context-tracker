@@ -7,7 +7,8 @@
     "psr-4": {
       "Miinto\\ContextTracing\\": "src/",
       "Miinto\\ContextTracing\\Tests\\": "tests/"
-    }
+    },
+    "classmap": ["src/Logger/Contextawaresyslog.php"]
   },
   "require": {
     "php": ">=5.6"
