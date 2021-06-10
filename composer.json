@@ -1,0 +1,14 @@
+{
+  "name": "miinto/contexttracker",
+  "description": "Miinto context tracker component",
+  "type": "library",
+  "license": "proprietary",
+  "autoload": {
+    "psr-4": {
+      "Miinto\\ContextTracing\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^5.6"
+  }
+}
