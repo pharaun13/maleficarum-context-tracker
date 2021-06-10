@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ContextTracing;
+namespace Miinto\ContextTracing;
 
 class SimpleTracer implements TracerInterface {
 	/**
@@ -55,17 +55,17 @@ class SimpleTracer implements TracerInterface {
 
     public function createSpanFromContext(array $context) {
         if (array_key_exists('operation', $context)) {
-            $this->startChildSpan($context['operation']);
+            $this->startSpan($context['operation']);
         }
         if (array_key_exists('items', $context)) {
             foreach ($context['items'] as $k => $v) {
-                $this->addTag($k, $v);
+                $this->addItem($k, $v);
             }
         }
     }
 
     public function addItem($key, $value) {
-        // TODO: Implement addItem() method.
+        $this->getCurrentSpan()->addItem($key, $value);
     }
 
     /**
@@ -77,8 +77,15 @@ class SimpleTracer implements TracerInterface {
 
     public function __toString()
     {
-        json_encode($this->getCurrentSpan()->transfer());
+        return json_encode($this->getCurrentSpan()->transfer());
     }
 
+    /**
+     * @return array
+     */
+    public function flatten()
+    {
+        return $this->getCurrentSpan()->flatten();
+    }
 
 }

@@ -5,10 +5,14 @@
   "license": "proprietary",
   "autoload": {
     "psr-4": {
-      "Miinto\\ContextTracing\\": "src/"
+      "Miinto\\ContextTracing\\": "src/",
+      "Miinto\\ContextTracing\\Tests\\": "tests/"
     }
   },
   "require": {
-    "php": "^5.6"
+    "php": ">=5.6"
+  },
+  "require-dev": {
+    "phpunir/phpunit": "9.1.4"
   }
 }

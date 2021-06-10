@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ContextTracing;
+namespace Miinto\ContextTracing;
 
 
 class SimpleSpan implements SpanInterface
@@ -63,9 +63,18 @@ class SimpleSpan implements SpanInterface
 		];
 	}
 
+    public function flatten()
+    {
+        return [
+            'operation' => $this->getOperationName(),
+            'items' => $this->getItems(),
+            'tags' => $this->getTags(),
+        ];
+    }
+
 	public function getOperationName()
 	{
-		return ($this->parentSpan ? $this->parentSpan->getOperationName() : '' ) . '||' . $this->name;
+		return ($this->parentSpan ? $this->parentSpan->getOperationName() . '||'  : '' ) . $this->name;
 	}
 
     public function getTags()
@@ -75,7 +84,7 @@ class SimpleSpan implements SpanInterface
 
     public function getItems()
     {
-        return array_merge($this->tags, ($this->parentSpan ? $this->parentSpan->getItems() : [] ));
+        return array_merge($this->items, ($this->parentSpan ? $this->parentSpan->getItems() : [] ));
     }
 
 

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ContextTracing;
+namespace Miinto\ContextTracing;
 
 
 class ContextTracker
@@ -25,5 +25,9 @@ class ContextTracker
         }
 		return self::$tracer;
 	}
+
+	static public function init(TracerInterface $tracer) {
+	    self::$tracer = $tracer;
+    }
 
 }
