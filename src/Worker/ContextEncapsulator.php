@@ -9,6 +9,8 @@ class ContextEncapsulator extends AbstractEncapsulator {
         $messageContext = ContextAccess::extractContext($this->getHandler()->getCommand());
         $tracer = \Miinto\ContextTracing\ContextTracker::getTracer();
         $tracer->createSpanFromContext($messageContext);
+        $tracer->addTag('HID', $this->getHandler()->getHandlerId());
+        $tracer->addTag('WorkerId', $this->getHandler()->getWorkerId());
 
         return true;
     }
