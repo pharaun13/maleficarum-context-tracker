@@ -70,7 +70,7 @@ class SimpleTracer implements TracerInterface {
     /**
      * @return string
      */
-    private function getDefaultOperationName(): string {
+    private function getDefaultOperationName() {
         return getHostName();
     }
 
