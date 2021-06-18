@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Miinto\ContextTracing\Tests;
+namespace Maleficarum\ContextTracing\Tests;
 
 
-use Miinto\ContextTracing\ContextTracker;
-use Miinto\ContextTracing\SimpleTracer;
+use Maleficarum\ContextTracing\ContextTracker;
+use Maleficarum\ContextTracing\SimpleTracer;
 use PHPUnit\Framework\TestCase;
 
 class TagsTest extends TestCase

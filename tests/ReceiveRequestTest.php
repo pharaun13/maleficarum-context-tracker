@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Miinto\ContextTracing\Tests;
+namespace Maleficarum\ContextTracing\Tests;
 
 
-use Miinto\ContextTracing\Carrier\Http\HttpHeader;
-use Miinto\ContextTracing\SimpleTracer;
+use Maleficarum\ContextTracing\Carrier\Http\HttpHeader;
+use Maleficarum\ContextTracing\SimpleTracer;
 use PHPUnit\Framework\TestCase;
 
 class ReceiveRequestTest extends TestCase

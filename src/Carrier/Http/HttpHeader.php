@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Miinto\ContextTracing\Carrier\Http;
+namespace Maleficarum\ContextTracing\Carrier\Http;
 
 
-use Miinto\ContextTracing\SimpleTracer;
-use Miinto\ContextTracing\TracerInterface;
+use Maleficarum\ContextTracing\SimpleTracer;
+use Maleficarum\ContextTracing\TracerInterface;
 
 class HttpHeader
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Miinto\ContextTracing\Identifiers;
+namespace Maleficarum\ContextTracing\Identifiers;
 
 
 class TrackingId

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Miinto\ContextTracing;
+namespace Maleficarum\ContextTracing;
 
 class SimpleTracer implements TracerInterface
 {
