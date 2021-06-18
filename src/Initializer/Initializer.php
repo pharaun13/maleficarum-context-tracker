@@ -7,6 +7,7 @@ namespace Maleficarum\ContextTracing\Initializer;
 use Maleficarum\ContextTracing\Carrier\Http\HttpHeader;
 use Maleficarum\ContextTracing\ContextTracker;
 use Maleficarum\ContextTracing\SimpleTracer;
+use Maleficarum\ContextTracing\Identifiers\TrackingId;
 
 class Initializer
 {
@@ -14,6 +15,11 @@ class Initializer
     {
         $tracer = new SimpleTracer();
         (new HttpHeader())->extract($tracer, $this->getAllHeaders());
+        $id = TrackingId::RID($opts['']);
+        if (!$tracer->hasItem(SimpleTracer::MASTER_ID)) {
+            $tracer->addItem(SimpleTracer::MASTER_ID, $id->generate());
+        }
+        $tracer->addItem(SimpleTracer::CURRENT_ID, $id->generate());
         ContextTracker::init($tracer);
     }
 

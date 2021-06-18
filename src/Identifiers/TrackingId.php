@@ -9,29 +9,45 @@ class TrackingId
     /**
      * @var string
      */
-    private $identifier;
+    private $serviceName;
 
     /**
-     * RID constructor.
-     * @param string $identifier
+     * @var string
      */
-    private function __construct($identifier)
+    private $prefix;
+
+    /**
+     * TrackingId constructor.
+     * @param string $serviceName
+     * @param string $prefix
+     */
+    public function __construct($serviceName, $prefix)
     {
-        $this->identifier = $identifier;
+        $this->serviceName = $serviceName;
+        $this->prefix = $prefix;
     }
 
+
+    /**
+     * @param $serviceNam
+     * @return TrackingId
+     */
     public static function RID($serviceNam)
     {
-        return new self('RID-' - $serviceNam . '-' . uniqid('', true));
+        return new self($serviceNam, 'RID');
     }
 
+    /**
+     * @param $serviceNam
+     * @return TrackingId
+     */
     public static function HID($serviceNam)
     {
-        return new self('HID-' - $serviceNam . '-' . uniqid('', true));
+        return  new self($serviceNam, 'HID');;
     }
 
-    public function __toString()
+    public function generate()
     {
-        return $this->identifier;
+        return sprintf('%s-%s-%s', $this->prefix, $this->serviceName, uniqid('', true));
     }
 }
