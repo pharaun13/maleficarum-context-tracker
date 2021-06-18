@@ -1,12 +1,12 @@
 {
-  "name": "miinto/contexttracker",
-  "description": "Miinto context tracker component",
+  "name": "maleficarum/contexttracker",
+  "description": "Maleficarum context tracker component",
   "type": "library",
   "license": "proprietary",
   "autoload": {
     "psr-4": {
-      "Miinto\\ContextTracing\\": "src/",
-      "Miinto\\ContextTracing\\Tests\\": "tests/"
+      "Maleficarum\\ContextTracing\\": "src/",
+      "Maleficarum\\ContextTracing\\Tests\\": "tests/"
     },
     "classmap": ["src/Logger/Contextawaresyslog.php"]
   },

@@ -3,7 +3,7 @@
 namespace Maleficarum\Worker\Logger\Facility;
 
 use Maleficarum\Worker\Logger\Facility\Syslog;
-use Miinto\ContextTracing\ContextTracker;
+use Maleficarum\ContextTracing\ContextTracker;
 
 class Contextawaresyslog extends Syslog
 {

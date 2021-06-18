@@ -1,69 +1,42 @@
 <?php
 
 
-namespace Miinto\ContextTracing\Tests;
+namespace Maleficarum\ContextTracing\Tests;
 
 
-use Miinto\ContextTracing\ContextTracker;
-use Miinto\ContextTracing\SimpleTracer;
+use Maleficarum\ContextTracing\Carrier\Http\HttpHeader;
+use Maleficarum\ContextTracing\SimpleTracer;
 use PHPUnit\Framework\TestCase;
 
 class ReceiveRequestTest extends TestCase
 {
-    public function testExtractOperation()
-    {
-        $operation = 'parent-operation';
-        $context = [
-            'operation' => $operation
-        ];
-        $payload = [
-            '__meta' => [
-                'context' => $context
-            ]
-        ];
-
-        $simpleTracer = new SimpleTracer();
-        $simpleTracer->createSpanFromContext($payload['__meta']['context']);
-
-        $flatData = $simpleTracer->flatten();
-
-        $this->assertEquals([
-            'operation' => $operation,
-            'items' => [],
-            'tags' => [],
-        ], $flatData);
-    }
-
     public function testExtractItems()
     {
-        $operation = 'parent-operation';
-        $items = ['item1' => 'value1', 'item2' => 'value2'];
-        $context = [
-            'operation' => $operation,
-            'items' => $items
-        ];
-        $payload = [
-            '__meta' => [
-                'context' => $context,
-            ]
+        $headers = [
+           HttpHeader::X_MIINTO_CONTEXT_MASTER_ID => 'value1',
+           HttpHeader::X_MIINTO_CONTEXT_LAST_ID => 'value2',
         ];
 
+        $httpHeader = new HttpHeader();
         $simpleTracer = new SimpleTracer();
-        $simpleTracer->createSpanFromContext($payload['__meta']['context']);
+        $httpHeader->extract($simpleTracer, $headers);
 
-        $flatData = $simpleTracer->flatten();
-
-        $this->assertEquals([
-            'operation' => $operation,
-            'items' => $items,
-            'tags' => [],
-        ], $flatData);
+        $this->assertEquals('value1', $simpleTracer->getItem(SimpleTracer::MASTER_ID));
+        $this->assertTrue($simpleTracer->hasItem(SimpleTracer::MASTER_ID));
+        $this->assertEquals('value2', $simpleTracer->getItem(SimpleTracer::LAST_ID));
+        $this->assertTrue($simpleTracer->hasItem(SimpleTracer::LAST_ID));
     }
 
     public function testNoContext()
     {
+        $headers = [];
+
+        $httpHeader = new HttpHeader();
         $simpleTracer = new SimpleTracer();
-        $simpleTracer->createSpanFromContext([]);
+        $httpHeader->extract($simpleTracer, $headers);
+
+        $this->assertFalse($simpleTracer->hasItem(SimpleTracer::MASTER_ID));
+        $this->assertFalse($simpleTracer->hasItem(SimpleTracer::LAST_ID));
     }
 
 

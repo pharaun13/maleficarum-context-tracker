@@ -1,77 +1,49 @@
 <?php
 
 
-namespace Miinto\ContextTracing;
+namespace Maleficarum\ContextTracing;
 
-class SimpleTracer implements TracerInterface {
-	/**
-	 * @var SpanInterface
-	 */
-	private $currentSpan;
+class SimpleTracer implements TracerInterface
+{
 
-	/**
-	 * @inheritDoc
-	 */
-	private function startSpan($operationName) {
-		$this->currentSpan = new SimpleSpan($operationName);
-	}
+    const MASTER_ID = 'masterId';
+    const CURRENT_ID = 'currentId';
+    const LAST_ID = 'lastId';
 
-	/**
-	 * @inheritDoc
-	 */
-	public function startChildSpan($operationName) {
 
-		$this->currentSpan = new SimpleSpan($operationName, $this->getCurrentSpan());
-	}
+    /*
+     * @var string[]
+     */
+    private $tags = [];
 
-	/**
-	 * @inheritDoc
-	 */
-	public function addTag($key, $value) {
-		$this->getCurrentSpan()->addTag($key, $value);
-	}
+    /*
+     * @var string[]
+     */
+    private $items = [];
 
-	/**
-	 * @return SpanInterface
-	 */
-	private function getCurrentSpan() {
-		if (!$this->currentSpan instanceof SpanInterface) {
-			$this->startSpan($this->getDefaultOperationName());
-		}
-		return $this->currentSpan;
-	}
-
-	public function injectIntoMessage(array $message) {
-		//todo limit rozmiaru
-		$context = $this->getCurrentSpan()->transfer();
-		if (!array_key_exists('__meta', $message)) {
-			$message['__meta'] = [];
-		}
-		$message['__meta']['context'] = $context;
-
-		return $message;
-	}
-
-    public function createSpanFromContext(array $context) {
-        if (array_key_exists('operation', $context)) {
-            $this->startSpan($context['operation']);
-        }
-        if (array_key_exists('items', $context)) {
-            foreach ($context['items'] as $k => $v) {
-                $this->addItem($k, $v);
-            }
-        }
-    }
-
-    public function addItem($key, $value) {
-        $this->getCurrentSpan()->addItem($key, $value);
-    }
 
     /**
-     * @return string
+     * @inheritDoc
      */
-    private function getDefaultOperationName() {
-        return getHostName();
+    public function addTag($key, $value)
+    {
+        $this->tags[$key] = $value;
+    }
+
+    public function addItem($key, $value)
+    {
+        $this->items[$key] = $value;
+    }
+
+
+    public function getItem($key)
+    {
+        return $this->hasItem($key) ? $this->items[$key] : null;
+    }
+
+    public function hasItem($key)
+    {
+        return array_key_exists($key, $this->items);
     }
 
     /**
@@ -79,7 +51,12 @@ class SimpleTracer implements TracerInterface {
      */
     public function flatten()
     {
-        return $this->getCurrentSpan()->flatten();
+        return [
+            'tags' => array_merge($this->tags, [
+                self::MASTER_ID => $this->getItem(self::MASTER_ID),
+                self::LAST_ID => $this->getItem(self::LAST_ID),
+                self::CURRENT_ID => $this->getItem(self::CURRENT_ID),
+            ])
+        ];
     }
-
 }
