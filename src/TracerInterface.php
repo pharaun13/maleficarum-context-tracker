@@ -6,14 +6,6 @@ namespace Miinto\ContextTracing;
 
 interface TracerInterface
 {
-
-	/**
-	 * @param string $operationName
-	 * @return void
-	 */
-	public function startChildSpan($operationName);
-
-
 	/**
 	 * @param string $key
 	 * @param string $value
@@ -22,14 +14,26 @@ interface TracerInterface
 	public function addTag($key, $value);
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      * @return void
      */
     public function addItem($key, $value);
 
-    public function injectIntoMessage(array $message);
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public function hasItem($key);
 
-    public function createSpanFromContext(array $context);
+    /**
+     * @param string $key
+     * @return mixed|null
+     */
+    public function getItem($key);
 
+    /**
+     * @return array
+     */
+    public function flatten();
 }
