@@ -11,7 +11,7 @@ use Maleficarum\ContextTracing\Identifiers\TrackingId;
 
 class HttpInitializer
 {
-    public function initialize(array $opts = [])
+    static public function initialize(array $opts = [])
     {
         $tracer = new SimpleTracer();
         (new HttpHeader())->extract($tracer, $this->getAllHeaders());
