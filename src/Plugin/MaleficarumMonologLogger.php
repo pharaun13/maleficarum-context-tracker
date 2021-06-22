@@ -8,7 +8,7 @@ use Maleficarum\ContextTracing\ContextTracker;
 
 class MaleficarumMonologLogger
 {
-    public function addProcessor($logger)
+    public static function addProcessor($logger)
     {
         $logger->pushProcessor(function (array $record) {
             $record['context'] = array_merge(
