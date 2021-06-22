@@ -14,7 +14,7 @@ class HttpInitializer
     {
         $tracer = new SimpleTracer();
         (new HttpHeader())->extract($tracer, self::getAllHeaders());
-        $id = TrackingId::RID($opts['context.service_name']);
+        $id = TrackingId::RID('my-service');
         if (!$tracer->hasItem(SimpleTracer::MASTER_ID)) {
             $tracer->addItem(SimpleTracer::MASTER_ID, $id->generate());
         }
