@@ -9,8 +9,8 @@ use Maleficarum\ContextTracing\TracerInterface;
 
 class HttpHeader
 {
-    const X_MIINTO_CONTEXT_MASTER_ID = 'X-Miinto-Context-MasterId';
-    const X_MIINTO_CONTEXT_LAST_ID = 'X-Miinto-Context-LastId';
+    const X_MIINTO_CONTEXT_MASTER_ID = 'X-Miinto-Context-Masterid';
+    const X_MIINTO_CONTEXT_LAST_ID = 'X-Miinto-Context-Lastid';
 
     /**
      * @param TracerInterface $tracer
