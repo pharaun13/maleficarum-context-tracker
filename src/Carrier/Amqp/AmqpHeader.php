@@ -1,16 +1,16 @@
 <?php
 
 
-namespace Maleficarum\ContextTracing\Carrier\Http;
+namespace Maleficarum\ContextTracing\Carrier\Amqp;
 
 
 use Maleficarum\ContextTracing\SimpleTracer;
 use Maleficarum\ContextTracing\TracerInterface;
 
-class HttpHeader
+class AmqpHeader
 {
-    const X_MIINTO_CONTEXT_MASTER_ID = 'X-Miinto-Context-Masterid';
-    const X_MIINTO_CONTEXT_LAST_ID = 'X-Miinto-Context-Lastid';
+    const X_MIINTO_CONTEXT_MASTER_ID = 'X-Miinto-Context-MasterId';
+    const X_MIINTO_CONTEXT_LAST_ID = 'X-Miinto-Context-LastId';
 
     /**
      * @param TracerInterface $tracer
