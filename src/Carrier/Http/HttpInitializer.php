@@ -23,6 +23,5 @@ class HttpInitializer
             $tracer->addItem(SimpleTracer::MASTER_ID, $id->generate());
         }
         $tracer->addItem(SimpleTracer::CURRENT_ID, $id->generate());
-        ContextTracker::init($tracer);
     }
 }
