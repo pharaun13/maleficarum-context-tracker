@@ -9,7 +9,7 @@ class HttpInitializer
     {
         $app = $opts['app'];
         \Maleficarum\ContextTracing\Carrier\Http\HttpInitializer::initialize(
-            $app->request->getHeaders(),
+            (new \Phalcon\Http\Request())->getHeaders(),
             array_key_exists('prefix', $opts) ? $opts['prefix'] : 'service'
         );
     }
