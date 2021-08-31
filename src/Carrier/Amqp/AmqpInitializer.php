@@ -1,14 +1,15 @@
 <?php
 
 
-namespace Maleficarum\ContextTracing\Carrier\Http;
+namespace Maleficarum\ContextTracing\Carrier\Amqp;
 
 
+use Maleficarum\ContextTracing\Carrier\Http\HttpHeader;
 use Maleficarum\ContextTracing\ContextTracker;
 use Maleficarum\ContextTracing\Identifiers\TrackingId;
 use Maleficarum\ContextTracing\SimpleTracer;
 
-class HttpInitializer
+class AmqpInitializer
 {
     /**
      * @param array $headers
@@ -17,7 +18,7 @@ class HttpInitializer
     static public function initialize(array $headers, $serviceName)
     {
         $tracer = ContextTracker::getTracer();
-        (new HttpHeader())->extract($tracer, $headers);
+        (new AmqpHeader())->extract($tracer, $headers);
         $id = TrackingId::RID($serviceName);
         if (!$tracer->hasItem(SimpleTracer::MASTER_ID)) {
             $tracer->addItem(SimpleTracer::MASTER_ID, $id->generate());
