@@ -4,7 +4,7 @@
 namespace Maleficarum\ContextTracing\Tests;
 
 
-use Maleficarum\ContextTracing\Carrier\Http\AmqpHeader;
+use Maleficarum\ContextTracing\Carrier\Amqp\AmqpHeader;
 use Maleficarum\ContextTracing\SimpleTracer;
 use PHPUnit\Framework\TestCase;
 
