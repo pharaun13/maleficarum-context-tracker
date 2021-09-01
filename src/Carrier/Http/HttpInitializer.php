@@ -16,12 +16,13 @@ class HttpInitializer
      */
     static public function initialize(array $headers, $serviceName)
     {
-        $tracer = ContextTracker::getTracer();
+        $tracer = new SimpleTracer();
         (new HttpHeader())->extract($tracer, $headers);
         $id = TrackingId::RID($serviceName);
         if (!$tracer->hasItem(SimpleTracer::MASTER_ID)) {
             $tracer->addItem(SimpleTracer::MASTER_ID, $id->generate());
         }
         $tracer->addItem(SimpleTracer::CURRENT_ID, $id->generate());
+        ContextTracker::init($tracer);
     }
 }
