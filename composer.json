@@ -7,8 +7,7 @@
     "psr-4": {
       "Maleficarum\\ContextTracing\\": "src/",
       "Maleficarum\\ContextTracing\\Tests\\": "tests/"
-    },
-    "classmap": ["src/Logger/Contextawaresyslog.php"]
+    }
   },
   "require": {
     "php": ">=5.6"
