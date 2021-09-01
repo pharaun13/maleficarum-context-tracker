@@ -1,0 +1,24 @@
+name: Run unit tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+
+defaults:
+  run:
+    working-directory: consumer
+
+jobs:
+  build:
+    runs-on: [self-hosted, generic-vagrant-runner]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Compmoser install
+        run: composer install
+
+      - name: Run unit tests
+        run: vendor/bin/phpunit --bootstrap test/bootstrap.php

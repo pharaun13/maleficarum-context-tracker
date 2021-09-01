@@ -11,12 +11,17 @@ class MaleficarumMonologLogger
 {
     public static function addProcessor($logger)
     {
-        $logger->pushProcessor(function (array $record) {
-            $flatContext = ContextTracker::getTracer()->flatten();
+        $logger->pushProcessor(
+            function (array $record) {
+                try {
+                    $flatContext = ContextTracker::getTracer()->flatten();
 
-            $record['message'] = Formatter::format($record['message'], $flatContext);
+                    $record['message'] = Formatter::format($record['message'], $flatContext);
+                } catch (\Exception $exception) {
+                }
 
-            return $record;
-        });
+                return $record;
+            }
+        );
     }
 }
