@@ -23,6 +23,12 @@ class TrackingId
      */
     public function __construct($serviceName, $prefix)
     {
+        if (!is_string($serviceName)) {
+            $serviceName = 'service';
+        }
+        if (!is_string($prefix)) {
+            $prefix = '';
+        }
         $this->serviceName = $serviceName;
         $this->prefix = $prefix;
     }
@@ -43,7 +49,7 @@ class TrackingId
      */
     public static function HID($serviceNam)
     {
-        return  new self($serviceNam, 'HID');;
+        return new self($serviceNam, 'HID');;
     }
 
     public function generate()

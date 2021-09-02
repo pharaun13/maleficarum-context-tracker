@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Maleficarum\ContextTracing\Carrier\Http;
+namespace Maleficarum\ContextTracing\Carrier\Generic;
 
 
 use Maleficarum\ContextTracing\SimpleTracer;
 use Maleficarum\ContextTracing\TracerInterface;
 
-class HttpHeader
+class Header
 {
     const X_MIINTO_CONTEXT_MASTER_ID = 'X-Miinto-Context-Masterid';
     const X_MIINTO_CONTEXT_LAST_ID = 'X-Miinto-Context-Lastid';
@@ -15,17 +15,17 @@ class HttpHeader
     /**
      * @param TracerInterface $tracer
      * @param array $outgoingHeaders
-     * @return array $headers
+     * @return array
      */
     public function inject(TracerInterface $tracer, array $outgoingHeaders)
     {
         $masterId = $tracer->getItem(SimpleTracer::MASTER_ID);
         $currentId = $tracer->getItem(SimpleTracer::CURRENT_ID);
 
-        if ($masterId) {
+        if (is_string($masterId)) {
             $outgoingHeaders[self::X_MIINTO_CONTEXT_MASTER_ID] = $masterId;
         }
-        if ($currentId) {
+        if (is_string($currentId)) {
             $outgoingHeaders[self::X_MIINTO_CONTEXT_LAST_ID] = $currentId;
         }
 

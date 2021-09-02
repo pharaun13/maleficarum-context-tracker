@@ -7,8 +7,16 @@ class MaleficarumHttpInitializer
 {
     static public function initialize(array $opts = [])
     {
-        \Maleficarum\ContextTracing\Carrier\Http\HttpInitializer::initialize(
-            (new \Phalcon\Http\Request())->getHeaders(),
+        try {
+            $headers = (new \Phalcon\Http\Request())->getHeaders();
+        } catch (\Exception $exception) {
+            $headers = [];
+        }
+        if (!is_array($headers)) {
+            $headers = [];
+        }
+        \Maleficarum\ContextTracing\Carrier\Generic\Initializer::initialize(
+            $headers,
             array_key_exists('prefix', $opts) ? $opts['prefix'] : 'service'
         );
     }

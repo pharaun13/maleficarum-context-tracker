@@ -4,7 +4,7 @@
 namespace Maleficarum\ContextTracing\Tests;
 
 
-use Maleficarum\ContextTracing\Carrier\Amqp\AmqpHeader;
+use Maleficarum\ContextTracing\Carrier\Generic\Header;
 use Maleficarum\ContextTracing\SimpleTracer;
 use PHPUnit\Framework\TestCase;
 
@@ -13,11 +13,11 @@ class ReceiveRequestTest extends TestCase
     public function testExtractItems()
     {
         $headers = [
-           AmqpHeader::X_MIINTO_CONTEXT_MASTER_ID => 'value1',
-           AmqpHeader::X_MIINTO_CONTEXT_LAST_ID => 'value2',
+           Header::X_MIINTO_CONTEXT_MASTER_ID => 'value1',
+            Header::X_MIINTO_CONTEXT_LAST_ID => 'value2',
         ];
 
-        $httpHeader = new AmqpHeader();
+        $httpHeader = new Header();
         $simpleTracer = new SimpleTracer();
         $httpHeader->extract($simpleTracer, $headers);
 
@@ -31,7 +31,7 @@ class ReceiveRequestTest extends TestCase
     {
         $headers = [];
 
-        $httpHeader = new AmqpHeader();
+        $httpHeader = new Header();
         $simpleTracer = new SimpleTracer();
         $httpHeader->extract($simpleTracer, $headers);
 

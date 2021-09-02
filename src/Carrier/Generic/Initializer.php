@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Maleficarum\ContextTracing\Carrier\Http;
+namespace Maleficarum\ContextTracing\Carrier\Generic;
 
 
 use Maleficarum\ContextTracing\ContextTracker;
 use Maleficarum\ContextTracing\Identifiers\TrackingId;
 use Maleficarum\ContextTracing\SimpleTracer;
 
-class HttpInitializer
+class Initializer
 {
     /**
      * @param array $headers
@@ -17,7 +17,10 @@ class HttpInitializer
     static public function initialize(array $headers, $serviceName)
     {
         $tracer = new SimpleTracer();
-        (new HttpHeader())->extract($tracer, $headers);
+        (new Header())->extract($tracer, $headers);
+        if (!is_string($serviceName)) {
+            $serviceName = 'service';
+        }
         $id = TrackingId::RID($serviceName);
         if (!$tracer->hasItem(SimpleTracer::MASTER_ID)) {
             $tracer->addItem(SimpleTracer::MASTER_ID, $id->generate());
